@@ -5,3 +5,4 @@
 Edivan Carvalho
 Jonatha Freitas
 Anthonny Max
+Deockar Alexandre
