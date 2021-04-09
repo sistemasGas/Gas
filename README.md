@@ -2,6 +2,6 @@
 
 * Escreva seu nome aqui: 
 ---
-Edivan Carvalho
+Edivan
 Jonatha Freitas
 Anthonny Max
