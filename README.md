@@ -4,3 +4,4 @@
 ---
 Edivan Carvalho
 Jonatha Freitas
+Anthonny Max
