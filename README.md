@@ -19,7 +19,7 @@
 ### 2. Modelo de banco de dados
 &nbsp;&nbsp;&nbsp;&nbsp;A **figura 2** representa graficamente as entidades e seus relacionamentos com as de mais entidades do banco de dados
 
-<img src="https://uploaddeimagens.com.br/imagens/Y2BbUqs" alt="Diagrama entidade relacionamento" title="Clique para ampliar">
+<img src="https://prnt.sc/11gtlz5" alt="Diagrama entidade relacionamento" title="Clique para ampliar">
   <p align="center"> 
     <b>Figura 2 - Diagrama entidade relacionamento</b> 
   </p> 
