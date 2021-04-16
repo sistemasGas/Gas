@@ -1,4 +1,9 @@
-# GasOnLine
+<img src="https://uploaddeimagens.com.br/images/003/197/768/original/g%C3%A1s_online_png.png?1618521989" alt="GasOnLine" title="Clique para ampliar">
+  <p align="center"> 
+    <b>Logo</b> 
+  </p> 
+</img>
+
 
 &nbsp;&nbsp;&nbsp;&nbsp;GasOnLine é um sistema online para gerenciamento de deposito de gás, auxiliando nos processos de compra, venda e controle de estoque.
 
@@ -17,7 +22,7 @@
 </img>
 
 ### 2. Modelo de banco de dados
-&nbsp;&nbsp;&nbsp;&nbsp;A **figura 2** representa graficamente as entidades e seus relacionamentos com as de mais entidades do banco de dados
+&nbsp;&nbsp;&nbsp;&nbsp;A **figura 2** representa graficamente as entidades e seus relacionamentos com as demais entidades do banco de dados
 
 <img src="https://uploaddeimagens.com.br/images/003/197/354/original/Modelo_Logico.png?1618512571" alt="Diagrama entidade relacionamento" title="Clique para ampliar">
   <p align="center"> 
@@ -30,14 +35,10 @@
 
  - **Java** - Linguagem de programação utilizada para o desenvolvimento do sistema.
  
- - **Spring Framework** - Frameworks responsável pela arquitetura MVC e seguranças com **BCrypt** no projeto. 
+ - **Angular** - Frameworks de codigo aberto para contrução do frontend. 
 
- - **JPA/Hibernate** - Utilizada a especificação do **JPA**  para persistência dos dados utilizando a implementação do **Hibernate**.
- 
  - **HTML 5 e CSS3** - Usada para codificação e estilização do projeto utilizando também a biblioteca CSS do **Bootstrap**.
  
- - **Javascript e jQuery** - Usada para interatividade com o usuário e controles dos dados do sistema.
-
  - **Maven** - Para arquitetura inicial de projeto e controle de dependências.
 
  - **Postgresql** - Linguagem de banco de dados utilizada.
@@ -87,7 +88,7 @@
 
 &nbsp;&nbsp;&nbsp;&nbsp;**Observação:** É preciso estar autenticado para operar qualquer funcionalidade dentro do sistema.
 
-#### 5.1.1  BCrypt
+#### 5.1.1  Segurança de senha
 &nbsp;&nbsp;&nbsp;&nbsp;Ao cadastrar um usuário no sistema a senha desse usuário será transformada num “hash”.
 
 #### 5.2 Autorização
