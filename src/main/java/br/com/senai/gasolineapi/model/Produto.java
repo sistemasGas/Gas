@@ -5,6 +5,11 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
+
+import org.hibernate.validator.constraints.Range;
+import org.springframework.beans.factory.annotation.Value;
 
 import br.com.senai.gasolineapi.util.CategoriaEnum;
 
@@ -15,11 +20,16 @@ public class Produto {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
+	@NotNull
+	@Size(min = 3, max = 30)
 	private String descricao;
+	@Range(min=10, max = 99999)
 	private double valorCompra;
+	@Range(min=10, max = 99999)
 	private double valorVenda;
 	private Long quantidadeEstoque;
 	private CategoriaEnum categoria;
+	
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -35,6 +45,7 @@ public class Produto {
 		result = prime * result + (int) (temp ^ (temp >>> 32));
 		return result;
 	}
+	
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
@@ -67,6 +78,8 @@ public class Produto {
 			return false;
 		return true;
 	}
+	
+	
 	public Long getId() {
 		return id;
 	}
