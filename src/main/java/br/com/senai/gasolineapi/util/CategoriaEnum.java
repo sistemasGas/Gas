@@ -6,7 +6,8 @@ public enum CategoriaEnum {
 	P13("13 Kg"),
 	P20("20 Kg"),
 	P45("45 Kg"),
-	P90("90 Kg");
+	P90("90 Kg"),
+	AGUA("Galão");
 	
 	private String descricao;
 	
