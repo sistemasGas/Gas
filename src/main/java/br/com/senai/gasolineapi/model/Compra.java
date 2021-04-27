@@ -5,7 +5,6 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -18,6 +17,8 @@ import javax.persistence.Table;
 
 import org.hibernate.annotations.DynamicUpdate;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import br.com.senai.gasolineapi.util.StatusEnum;
 
 @Entity
@@ -29,6 +30,7 @@ public class Compra {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long codigo;
 	
+	@JsonFormat(pattern = "dd-MM-yyyy HH:mm:ss")
 	@Column(name="data_compra")
 	private LocalDate dataCompra;
 	

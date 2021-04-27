@@ -23,6 +23,8 @@ import javax.validation.constraints.NotNull;
 
 import org.hibernate.annotations.DynamicUpdate;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import br.com.senai.gasolineapi.util.StatusEnum;
 
 
@@ -37,6 +39,7 @@ public class Venda {
 
 	@Column(name = "data_venda")
 	@NotNull
+	@JsonFormat(pattern = "dd-MM-yyyy HH:mm:ss")
 	private LocalDateTime dataVenda;
 
 	@Column(name = "valor_desconto")
@@ -44,7 +47,7 @@ public class Venda {
 
 	@Column(name = "valor_total")
 	private BigDecimal valorTotal = BigDecimal.ZERO;
-
+	
 	private String observacao;
 
 	//@ManyToOne

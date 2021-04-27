@@ -27,7 +27,7 @@ import br.com.senai.gasolineapi.service.CompraService;
 
 @RestController
 @RequestMapping("/compras")
-public class CompraResourse {
+public class CompraResource {
 	
 	@Autowired
 	private CompraRepository compraRepository;
