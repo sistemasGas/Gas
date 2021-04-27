@@ -1,6 +1,7 @@
 package br.com.senai.gasolineapi.util;
 
 public enum PerfilEnum {
+	
 	Admin("Administrador"),
 	Func("Funcionario");
 	

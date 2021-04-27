@@ -17,6 +17,8 @@ import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
@@ -50,14 +52,14 @@ public class Venda {
 	
 	private String observacao;
 
-	//@ManyToOne
-	//@JoinColumn(name = "codigo_cliente")
-	//@NotNull
-	//private Cliente cliente;
+	@ManyToOne
+	@JoinColumn(name = "codigo_cliente")
+	@NotNull
+	private Pessoa cliente;
 
-	//@ManyToOne
-	//@JoinColumn(name = "codigo_usuario")
-	//private Usuario usuario;
+	@ManyToOne
+	@JoinColumn(name = "codigo_usuario")
+	private Usuario usuario;
 
 	@Enumerated(EnumType.STRING)
 	private StatusEnum status = StatusEnum.ORCAMENTO;
@@ -107,11 +109,11 @@ public class Venda {
 		this.observacao = observacao;
 	}
 
-	/*public Cliente getCliente() {
+	public Pessoa getCliente() {
 		return cliente;
 	}
 
-	public void setCliente(Cliente cliente) {
+	public void setCliente(Pessoa cliente) {
 		this.cliente = cliente;
 	}
 
@@ -123,7 +125,6 @@ public class Venda {
 		this.usuario = usuario;
 	}
 	
-	*/
 
 	public StatusEnum getStatus() {
 		return status;

@@ -5,6 +5,7 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -12,8 +13,11 @@ import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
 
 import org.hibernate.annotations.DynamicUpdate;
 
@@ -34,22 +38,20 @@ public class Compra {
 	@Column(name="data_compra")
 	private LocalDate dataCompra;
 	
-	//@ManyToOne
-	//@JoinColumn(name = "codigo_pessoa")
-	//@NotNull
-	//private Fornecedor fornecedor;
+	@ManyToOne
+	@JoinColumn(name = "codigo_pessoa")
+	@NotNull
+	private Pessoa fornecedor;
 
 	@Enumerated(EnumType.STRING)
 	private StatusEnum status = StatusEnum.ORCAMENTO;
 	
-	@OneToMany
-	private List<ItemVenda> itens = new ArrayList<>();
+	@OneToMany (mappedBy = "compra", cascade = CascadeType.ALL, orphanRemoval = true)
+	private List<ItemCompra> itens = new ArrayList<>();
 	
 	@Column(name = "valor_total")
 	private BigDecimal valorTotal = BigDecimal.ZERO;
 	private String observacao;
-	
-	
 	public Long getCodigo() {
 		return codigo;
 	}
@@ -62,26 +64,22 @@ public class Compra {
 	public void setDataCompra(LocalDate dataCompra) {
 		this.dataCompra = dataCompra;
 	}
-	
-	/*
-	 * public Fornecedor getFornecedor() {
-
+	public Pessoa getFornecedor() {
 		return fornecedor;
 	}
-	public void setFornecedor(Fornecedor fornecedor) {
+	public void setFornecedor(Pessoa fornecedor) {
 		this.fornecedor = fornecedor;
 	}
-		 */
 	public StatusEnum getStatus() {
 		return status;
 	}
 	public void setStatus(StatusEnum status) {
 		this.status = status;
 	}
-	public List<ItemVenda> getItens() {
+	public List<ItemCompra> getItens() {
 		return itens;
 	}
-	public void setItens(List<ItemVenda> itens) {
+	public void setItens(List<ItemCompra> itens) {
 		this.itens = itens;
 	}
 	public BigDecimal getValorTotal() {
@@ -96,8 +94,6 @@ public class Compra {
 	public void setObservacao(String observacao) {
 		this.observacao = observacao;
 	}
-	
-	
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -105,6 +101,7 @@ public class Compra {
 		result = prime * result + ((codigo == null) ? 0 : codigo.hashCode());
 		return result;
 	}
+	
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
