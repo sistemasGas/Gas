@@ -10,7 +10,6 @@ import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -41,6 +40,7 @@ public class ProdutoResource {
 	public List<Produto> pesquisar(ProdutoFilter produtoFilter) {
 		return produtoRepository.filtrar(produtoFilter);
 	}
+	
 
 	@PostMapping
 	@ResponseStatus(HttpStatus.CREATED)
@@ -84,4 +84,14 @@ public class ProdutoResource {
 		produtoService.atualizarEstoque(id, quantidadeEstoque);
 	}
 	
+	@GetMapping("/valorestoque")
+	public double buscarTotalProdutos( ProdutoFilter produtoFilter) {
+		List<Produto> lista = pesquisar(produtoFilter);
+		
+		double valor=0;
+		for(Produto p: lista) {
+			valor += p.getValorVenda()*p.getQuantidadeEstoque();
+		}
+		return valor;
+	}
 }
