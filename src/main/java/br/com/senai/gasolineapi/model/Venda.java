@@ -1,6 +1,5 @@
 package br.com.senai.gasolineapi.model;
 
-
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -29,7 +28,6 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 
 import br.com.senai.gasolineapi.util.StatusEnum;
 
-
 @Entity
 @Table(name = "venda")
 @DynamicUpdate
@@ -49,7 +47,10 @@ public class Venda {
 
 	@Column(name = "valor_total")
 	private BigDecimal valorTotal = BigDecimal.ZERO;
-	
+
+	@Column
+	private String tipoPagamento;
+
 	private String observacao;
 
 	@ManyToOne
@@ -67,7 +68,6 @@ public class Venda {
 	@OneToMany(mappedBy = "venda", cascade = CascadeType.ALL, orphanRemoval = true)
 	private List<ItemVenda> itens = new ArrayList<>();
 
-
 	public Long getCodigo() {
 		return codigo;
 	}
@@ -84,7 +84,6 @@ public class Venda {
 		this.dataVenda = dataVenda;
 	}
 
-
 	public BigDecimal getValorDesconto() {
 		return valorDesconto;
 	}
@@ -95,6 +94,14 @@ public class Venda {
 
 	public BigDecimal getValorTotal() {
 		return valorTotal;
+	}
+
+	public String getTipoPagamento() {
+		return tipoPagamento;
+	}
+
+	public void setTipoPagamento(String tipoPagamento) {
+		this.tipoPagamento = tipoPagamento;
 	}
 
 	public void setValorTotal(BigDecimal valorTotal) {
@@ -124,7 +131,6 @@ public class Venda {
 	public void setUsuario(Usuario usuario) {
 		this.usuario = usuario;
 	}
-	
 
 	public StatusEnum getStatus() {
 		return status;
@@ -145,39 +151,35 @@ public class Venda {
 	public boolean isNova() {
 		return codigo == null;
 	}
-	
+
 	public void adicionarItens(List<ItemVenda> itens) {
 		this.itens = itens;
 		this.itens.forEach(i -> i.setVenda(this));
 	}
-	
+
 	public BigDecimal getValorTotalItens() {
-		return getItens().stream()
-				.map(ItemVenda::getValorTotal)
-				.reduce(BigDecimal::add)
-				.orElse(BigDecimal.ZERO);
+		return getItens().stream().map(ItemVenda::getValorTotal).reduce(BigDecimal::add).orElse(BigDecimal.ZERO);
 	}
-	
+
 	public void calcularValorTotal() {
 		this.valorTotal = calcularValorTotal(getValorTotalItens(), getValorDesconto());
 	}
-	
+
 	public Long getDiasCriacao() {
 		LocalDate inicio = dataVenda != null ? dataVenda.toLocalDate() : LocalDate.now();
 		return ChronoUnit.DAYS.between(inicio, LocalDate.now());
 	}
-	
+
 	public boolean isSalvarPermitido() {
 		return !status.equals(StatusEnum.CANCELADA);
 	}
-	
+
 	public boolean isSalvarProibido() {
 		return !isSalvarPermitido();
 	}
-	
+
 	private BigDecimal calcularValorTotal(BigDecimal valorTotalItens, BigDecimal valorDesconto) {
-		BigDecimal valorTotal = valorTotalItens
-				.subtract(Optional.ofNullable(valorDesconto).orElse(BigDecimal.ZERO));
+		BigDecimal valorTotal = valorTotalItens.subtract(Optional.ofNullable(valorDesconto).orElse(BigDecimal.ZERO));
 		return valorTotal;
 	}
 
@@ -205,7 +207,5 @@ public class Venda {
 			return false;
 		return true;
 	}
-
-	
 
 }
