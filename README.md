@@ -1,9 +1,13 @@
+<<<<<<< HEAD
 <img src="https://uploaddeimagens.com.br/images/003/197/768/original/g%C3%A1s_online_png.png?1618521989" alt="GasOnLine" title="Clique para ampliar">
   <p align="center"> 
     <b>Logo</b> 
   </p> 
 </img>
 
+=======
+# GasOnLine
+>>>>>>> d323ea5 (endereço)
 
 &nbsp;&nbsp;&nbsp;&nbsp;GasOnLine é um sistema online para gerenciamento de deposito de gás, auxiliando nos processos de compra, venda e controle de estoque.
 
@@ -15,16 +19,26 @@
 
 &nbsp;&nbsp;&nbsp;&nbsp;A **figura 1** descreve a estrutura do sistema GasOnLine modelando suas classes descrevendo seus atributos e as relações entre objetos.
 
+<<<<<<< HEAD
 <img src="https://uploaddeimagens.com.br/images/003/197/639/original/Class_Diagram.PNG?1618519282" alt="Diagrama de classe" title="Clique para ampliar">
+=======
+<img src="https://uploaddeimagens.com.br/imagens/FSUcTr0" alt="Diagrama de classe" title="Clique para ampliar">
+>>>>>>> d323ea5 (endereço)
   <p align="center"> 
     <b>Figura 1 - Diagrama de classe</b> 
   </p> 
 </img>
 
 ### 2. Modelo de banco de dados
+<<<<<<< HEAD
 &nbsp;&nbsp;&nbsp;&nbsp;A **figura 2** representa graficamente as entidades e seus relacionamentos com as demais entidades do banco de dados
 
 <img src="https://uploaddeimagens.com.br/images/003/197/354/original/Modelo_Logico.png?1618512571" alt="Diagrama entidade relacionamento" title="Clique para ampliar">
+=======
+&nbsp;&nbsp;&nbsp;&nbsp;A **figura 2** representa graficamente as entidades e seus relacionamentos com as de mais entidades do banco de dados
+
+<img src="https://uploaddeimagens.com.br/imagens/Y2BbUqs" alt="Diagrama entidade relacionamento" title="Clique para ampliar">
+>>>>>>> d323ea5 (endereço)
   <p align="center"> 
     <b>Figura 2 - Diagrama entidade relacionamento</b> 
   </p> 
@@ -35,10 +49,21 @@
 
  - **Java** - Linguagem de programação utilizada para o desenvolvimento do sistema.
  
+<<<<<<< HEAD
  - **Angular** - Frameworks de codigo aberto para contrução do frontend. 
 
  - **HTML 5 e CSS3** - Usada para codificação e estilização do projeto utilizando também a biblioteca CSS do **Bootstrap**.
  
+=======
+ - **Spring Framework** - Frameworks responsável pela arquitetura MVC e seguranças com **BCrypt** no projeto. 
+
+ - **JPA/Hibernate** - Utilizada a especificação do **JPA**  para persistência dos dados utilizando a implementação do **Hibernate**.
+ 
+ - **HTML 5 e CSS3** - Usada para codificação e estilização do projeto utilizando também a biblioteca CSS do **Bootstrap**.
+ 
+ - **Javascript e jQuery** - Usada para interatividade com o usuário e controles dos dados do sistema.
+
+>>>>>>> d323ea5 (endereço)
  - **Maven** - Para arquitetura inicial de projeto e controle de dependências.
 
  - **Postgresql** - Linguagem de banco de dados utilizada.
@@ -51,30 +76,51 @@
 ### 4. Interface do sistema
 &nbsp;&nbsp;&nbsp;&nbsp;Nesse tópico serão mostradas as principais telas do sistemas seguindo de suas funcionalidades.
 
+<<<<<<< HEAD
 #### Cadastro de usuário
 &nbsp;&nbsp;&nbsp;&nbsp;A **figura 3** Tela de Cadastro de usuário
 
 <img src="https://i.ibb.co/SNNdvR6/Cad-Usuario.png" alt="Tela de Cadastro de usuário" title="Clique para ampliar">
+=======
+####. Cadastro de usuário
+&nbsp;&nbsp;&nbsp;&nbsp;A **figura 3** Tela de Cadastro de usuário
+
+<img src="https://uploaddeimagens.com.br/imagens/S1clHck" alt="Tela de Cadastro de usuário" title="Clique para ampliar">
+>>>>>>> d323ea5 (endereço)
   <p align="center"> 
     <b>Figura 3 - Tela de Cadastro de usuário</b> 
   </p> 
 </img>
 
 
+<<<<<<< HEAD
 #### Cadastro de cliente
 &nbsp;&nbsp;&nbsp;&nbsp;A **figura 4** Tela de Cadastro de cliente
 
 <img src="https://uploaddeimagens.com.br/images/003/197/405/original/CadCliente.jpg?1618513825" alt="Tela de Cadastro de cliente" title="Clique para ampliar">
+=======
+####. Cadastro de cliente
+&nbsp;&nbsp;&nbsp;&nbsp;A **figura 4** Tela de Cadastro de cliente
+
+<img src="https://uploaddeimagens.com.br/imagens/wVsbv-M" alt="Tela de Cadastro de cliente" title="Clique para ampliar">
+>>>>>>> d323ea5 (endereço)
   <p align="center"> 
     <b>Figura 3 - Tela de Cadastro de cliente</b> 
   </p> 
 </img>
 
 
+<<<<<<< HEAD
 #### Cadastro de Venda
 &nbsp;&nbsp;&nbsp;&nbsp;A **figura 5** Registro de Venda
 
 <img src="https://uploaddeimagens.com.br/images/003/197/407/original/RegistroVenda.jpg?1618513864" alt="Registro de Venda" title="Clique para ampliar">
+=======
+####. Cadastro de cliente
+&nbsp;&nbsp;&nbsp;&nbsp;A **figura 5** Registro de Venda
+
+<img src="https://uploaddeimagens.com.br/imagens/jwJGt04" alt="Registro de Venda" title="Clique para ampliar">
+>>>>>>> d323ea5 (endereço)
   <p align="center"> 
     <b>Figura 3 - Registro de Venda</b> 
   </p> 
@@ -88,7 +134,11 @@
 
 &nbsp;&nbsp;&nbsp;&nbsp;**Observação:** É preciso estar autenticado para operar qualquer funcionalidade dentro do sistema.
 
+<<<<<<< HEAD
 #### 5.1.1  Segurança de senha
+=======
+#### 5.1.1  BCrypt
+>>>>>>> d323ea5 (endereço)
 &nbsp;&nbsp;&nbsp;&nbsp;Ao cadastrar um usuário no sistema a senha desse usuário será transformada num “hash”.
 
 #### 5.2 Autorização
