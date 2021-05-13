@@ -15,7 +15,7 @@ import br.com.senai.gasolineapi.model.Pessoa;
 import br.com.senai.gasolineapi.repository.PessoaRepository;
 
 @RestController
-@RequestMapping("/pessoas")
+@RequestMapping("/pessoa")
 public class PessoaResource {
 
 	@Autowired
