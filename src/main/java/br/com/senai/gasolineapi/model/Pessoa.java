@@ -7,10 +7,12 @@ import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 import javax.validation.constraints.NotNull;
 
 import br.com.senai.gasolineapi.util.PessoaCategoria;
 import br.com.senai.gasolineapi.util.TipoPessoa;
+
 
 @Entity
 public class Pessoa {
@@ -40,6 +42,9 @@ public class Pessoa {
 	private PessoaCategoria categoria;
 	
 	private String cargo;
+	
+	@ManyToOne
+	private Usuario usuario;
 
 	public Long getId() {
 		return id;
@@ -130,6 +135,24 @@ public class Pessoa {
 		this.categoria = categoria;
 		this.cargo = cargo;
 	}
+	
+	
+
+
+	public Pessoa(Long id, String nome, String telefone, String email, @NotNull TipoPessoa tipo, String cpf,
+			String cnpj, @NotNull PessoaCategoria categoria, String cargo, Usuario usuario) {
+		super();
+		this.id = id;
+		this.nome = nome;
+		this.telefone = telefone;
+		this.email = email;
+		this.tipo = tipo;
+		this.cpf = cpf;
+		this.cnpj = cnpj;
+		this.categoria = categoria;
+		this.cargo = cargo;
+		this.usuario = usuario;
+	}
 
 	@Override
 	public int hashCode() {
@@ -154,6 +177,14 @@ public class Pessoa {
 		} else if (!id.equals(other.id))
 			return false;
 		return true;
+	}
+
+	public Usuario getUsuario() {
+		return usuario;
+	}
+
+	public void setUsuario(Usuario usuario) {
+		this.usuario = usuario;
 	}
 	
 	
