@@ -1,5 +1,6 @@
 package br.com.senai.gasolineapi.resource;
 
+import java.math.BigDecimal;
 import java.net.URI;
 import java.util.List;
 import java.util.Optional;
@@ -20,9 +21,13 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import br.com.senai.gasolineapi.model.Produto;
 import br.com.senai.gasolineapi.model.Venda;
 import br.com.senai.gasolineapi.repository.VendaRepository;
+import br.com.senai.gasolineapi.repository.filter.ProdutoFilter;
+import br.com.senai.gasolineapi.repository.filter.VendaFilter;
 import br.com.senai.gasolineapi.service.VendaService;
+import br.com.senai.gasolineapi.util.StatusEnum;
 
 @RestController
 @RequestMapping("/vendas")
@@ -62,5 +67,17 @@ public class VendaResource {
 	@ResponseStatus(HttpStatus.NO_CONTENT)
 	public void deletar(@PathVariable Long codigo) {
 		vendaRepository.deleteById(codigo);
+	}
+	
+	@GetMapping("/totalvendas")
+	public double buscarTotalVendas( VendaFilter vendaFilter) {
+		List<Venda> lista = pesquisar();
+		
+		double valor=0;
+		for(Venda v: lista) {
+			if(v.getStatus()==StatusEnum.EMITIDA)
+			valor += v.getValorTotal().longValue();
+		}
+		return valor;
 	}
 }

@@ -2,7 +2,6 @@ package br.com.senai.gasolineapi.model;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.List;
@@ -23,8 +22,9 @@ import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
 import org.hibernate.annotations.DynamicUpdate;
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import br.com.senai.gasolineapi.util.StatusEnum;
@@ -40,8 +40,7 @@ public class Venda {
 
 	@Column(name = "data_venda")
 	@NotNull
-	@JsonFormat(pattern = "dd-MM-yyyy HH:mm:ss")
-	private LocalDateTime dataVenda;
+	private LocalDate dataVenda;
 
 	@Column(name = "valor_desconto")
 	private BigDecimal valorDesconto;
@@ -57,7 +56,7 @@ public class Venda {
 	@ManyToOne
 	@JoinColumn(name = "codigo_cliente")
 	@NotNull
-	private Pessoa cliente;
+	private Pessoa pessoa;
 
 	@ManyToOne
 	@JoinColumn(name = "codigo_usuario")
@@ -65,10 +64,10 @@ public class Venda {
 
 	@Enumerated(EnumType.STRING)
 	private StatusEnum status = StatusEnum.ORCAMENTO;
-	
-	@JsonIgnoreProperties ("venda")
-	@OneToMany(mappedBy = "venda", cascade= CascadeType.ALL)
-	private List<ItemVenda> itens = new ArrayList<>();
+
+	@JsonIgnoreProperties("venda")
+	@OneToMany(mappedBy = "venda", cascade = { CascadeType.PERSIST, CascadeType.MERGE })
+	private List<ItemVenda> itensVenda = new ArrayList<>();
 
 	public Long getCodigo() {
 		return codigo;
@@ -78,11 +77,11 @@ public class Venda {
 		this.codigo = codigo;
 	}
 
-	public LocalDateTime getDataVenda() {
+	public LocalDate getDataVenda() {
 		return dataVenda;
 	}
 
-	public void setDataVenda(LocalDateTime dataVenda) {
+	public void setDataVenda(LocalDate dataVenda) {
 		this.dataVenda = dataVenda;
 	}
 
@@ -118,12 +117,12 @@ public class Venda {
 		this.observacao = observacao;
 	}
 
-	public Pessoa getCliente() {
-		return cliente;
+	public Pessoa getPessoa() {
+		return pessoa;
 	}
 
-	public void setCliente(Pessoa cliente) {
-		this.cliente = cliente;
+	public void setPessoa(Pessoa pessoa) {
+		this.pessoa = pessoa;
 	}
 
 	public Usuario getUsuario() {
@@ -142,25 +141,25 @@ public class Venda {
 		this.status = status;
 	}
 
-	public List<ItemVenda> getItens() {
-		return itens;
+	public List<ItemVenda> getItensVenda() {
+		return itensVenda;
 	}
 
-	public void setItens(List<ItemVenda> itens) {
-		this.itens = itens;
-	}
+	/*
+	 * public void setItensVenda(List<ItemVenda> itens) { this.itensVenda = itens; }
+	 */
 
 	public boolean isNova() {
 		return codigo == null;
 	}
 
-	
-	  public void adicionarItens(List<ItemVenda> itens) { this.itens = itens;
-	  this.itens.forEach(i -> i.setVenda(this)); }
-	 
+	public void setItensVenda(List<ItemVenda> itens) {
+		this.itensVenda = itens;
+		this.itensVenda.forEach(i -> i.setVenda(this));
+	}
 
 	public BigDecimal getValorTotalItens() {
-		return getItens().stream().map(ItemVenda::getValorTotal).reduce(BigDecimal::add).orElse(BigDecimal.ZERO);
+		return getItensVenda().stream().map(ItemVenda::getValorTotal).reduce(BigDecimal::add).orElse(BigDecimal.ZERO);
 	}
 
 	public void calcularValorTotal() {
@@ -168,7 +167,7 @@ public class Venda {
 	}
 
 	public Long getDiasCriacao() {
-		LocalDate inicio = dataVenda != null ? dataVenda.toLocalDate() : LocalDate.now();
+		LocalDate inicio = dataVenda != null ? dataVenda : LocalDate.now();
 		return ChronoUnit.DAYS.between(inicio, LocalDate.now());
 	}
 
