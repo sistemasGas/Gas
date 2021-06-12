@@ -25,6 +25,7 @@ import javax.validation.constraints.NotNull;
 import org.hibernate.annotations.DynamicUpdate;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import br.com.senai.gasolineapi.util.StatusEnum;
 
@@ -64,8 +65,9 @@ public class Venda {
 
 	@Enumerated(EnumType.STRING)
 	private StatusEnum status = StatusEnum.ORCAMENTO;
-
-	@OneToMany(mappedBy = "venda", cascade = CascadeType.ALL, orphanRemoval = true)
+	
+	@JsonIgnoreProperties ("venda")
+	@OneToMany(mappedBy = "venda", cascade= CascadeType.ALL)
 	private List<ItemVenda> itens = new ArrayList<>();
 
 	public Long getCodigo() {
@@ -152,10 +154,10 @@ public class Venda {
 		return codigo == null;
 	}
 
-	public void adicionarItens(List<ItemVenda> itens) {
-		this.itens = itens;
-		this.itens.forEach(i -> i.setVenda(this));
-	}
+	
+	  public void adicionarItens(List<ItemVenda> itens) { this.itens = itens;
+	  this.itens.forEach(i -> i.setVenda(this)); }
+	 
 
 	public BigDecimal getValorTotalItens() {
 		return getItens().stream().map(ItemVenda::getValorTotal).reduce(BigDecimal::add).orElse(BigDecimal.ZERO);

@@ -11,6 +11,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 @Entity
 @Table(name = "produto_venda")
 public class ItemVenda {
@@ -25,12 +27,13 @@ public class ItemVenda {
 	private BigDecimal valorUnitario;
 
 	@ManyToOne
-	@JoinColumn(name = "codigo_produto")
+	@JoinColumn(name = "codigo_produto")	
 	private Produto produto;
-
+	
 	@ManyToOne
-	@JoinColumn(name = "codigo_venda")
+	@JoinColumn(name="codigo_venda", referencedColumnName="codigo",nullable=false) 
 	private Venda venda;
+	
 
 	public Long getCodigo() {
 		return codigo;
@@ -60,7 +63,7 @@ public class ItemVenda {
 		return produto;
 	}
 
-	public void setCerveja(Produto produto) {
+	public void setProduto(Produto produto) {
 		this.produto = produto;
 	}
 
@@ -68,6 +71,7 @@ public class ItemVenda {
 		return valorUnitario.multiply(new BigDecimal(quantidade));
 	}
 
+	
 	public Venda getVenda() {
 		return venda;
 	}
