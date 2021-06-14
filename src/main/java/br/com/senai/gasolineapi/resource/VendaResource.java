@@ -21,11 +21,13 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import br.com.senai.gasolineapi.model.ItemVenda;
 import br.com.senai.gasolineapi.model.Produto;
 import br.com.senai.gasolineapi.model.Venda;
 import br.com.senai.gasolineapi.repository.VendaRepository;
 import br.com.senai.gasolineapi.repository.filter.ProdutoFilter;
 import br.com.senai.gasolineapi.repository.filter.VendaFilter;
+import br.com.senai.gasolineapi.service.ProdutoService;
 import br.com.senai.gasolineapi.service.VendaService;
 import br.com.senai.gasolineapi.util.StatusEnum;
 
@@ -35,23 +37,33 @@ public class VendaResource {
 
 	@Autowired
 	private VendaRepository vendaRepository;
-	
+
 	@Autowired
 	private VendaService vendaService;
-	
-	
+
+	@Autowired
+	private ProdutoService produtoService;
+
 	@GetMapping
 	public List<Venda> pesquisar() {
 		return vendaRepository.findAll();
 	}
-	
+
 	@PostMapping
 	@ResponseStatus(HttpStatus.CREATED)
 	public ResponseEntity<Venda> criar(@Valid @RequestBody Venda venda, HttpServletResponse response) {
 		Venda vendaSalva = vendaRepository.save(venda);
 
-		URI uri = ServletUriComponentsBuilder.fromCurrentRequestUri().path("/{codigo}").buildAndExpand(vendaSalva.getCodigo())
-				.toUri();
+		for (ItemVenda i : vendaSalva.getItensVenda()) {
+			long qntEstoque = i.getProduto().getQuantidadeEstoque();
+			qntEstoque -= i.getQuantidade();
+			if (qntEstoque > 0) {
+				produtoService.atualizarEstoque(i.getProduto().getId(), qntEstoque);
+			}
+		}
+
+		URI uri = ServletUriComponentsBuilder.fromCurrentRequestUri().path("/{codigo}")
+				.buildAndExpand(vendaSalva.getCodigo()).toUri();
 		response.setHeader("location", uri.toASCIIString());
 
 		return ResponseEntity.created(uri).body(vendaSalva);
@@ -68,15 +80,15 @@ public class VendaResource {
 	public void deletar(@PathVariable Long codigo) {
 		vendaRepository.deleteById(codigo);
 	}
-	
+
 	@GetMapping("/totalvendas")
-	public double buscarTotalVendas( VendaFilter vendaFilter) {
+	public double buscarTotalVendas(VendaFilter vendaFilter) {
 		List<Venda> lista = pesquisar();
-		
-		double valor=0;
-		for(Venda v: lista) {
-			if(v.getStatus()==StatusEnum.EMITIDA)
-			valor += v.getValorTotal().longValue();
+
+		double valor = 0;
+		for (Venda v : lista) {
+			if (v.getStatus() == StatusEnum.EMITIDA)
+				valor += v.getValorTotal().longValue();
 		}
 		return valor;
 	}
