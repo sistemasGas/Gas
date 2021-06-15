@@ -34,6 +34,7 @@ public class Produto {
 	@NotNull
 	@ManyToOne
 	private Categoria categoria;
+	private String imagem;
 	
 	
 	@Override
@@ -97,5 +98,11 @@ public class Produto {
 	public void setCategoria(Categoria categoria) {
 		this.categoria = categoria;
 	}
-		
+	public String getImagem() {
+		return imagem;
+	}
+	public void setImagem(String imagem) {
+		this.imagem = imagem;
+	}
+	
 }
