@@ -11,8 +11,6 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-
 @Entity
 @Table(name = "produto_venda")
 public class ItemVenda {
@@ -67,9 +65,10 @@ public class ItemVenda {
 		this.produto = produto;
 	}
 
-	public BigDecimal getValorTotal() {
-		return valorUnitario.multiply(new BigDecimal(quantidade));
-	}
+	/*
+	 * public BigDecimal getValorTotal() { return valorUnitario.multiply(new
+	 * BigDecimal(quantidade)); }
+	 */
 
 	
 	public Venda getVenda() {
