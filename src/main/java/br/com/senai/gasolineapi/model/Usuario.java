@@ -43,6 +43,13 @@ public class Usuario {
 	public void setPerfil(PerfilEnum perfil) {
 		this.perfil = perfil;
 	}
+	public String logar(){
+        if(login.equals("12312312312") && senha.equals("admin")){
+            return "pag-sucesso";
+        }
+		return login;             
+    }
+	
 	public void validaLogin(Usuario objeto) throws Exception {
         String nome = objeto.getLogin().trim().toLowerCase();
         String invalidos = "1234567890'\"!@#$%¨&*()-_+={[}]/?><;:";
