@@ -35,8 +35,10 @@ public class Pessoa {
 	@NotNull
 	private TipoPessoa tipo;
 	
+	@Column(unique=true)
 	private String cpf;
 	
+	@Column(unique=true)
 	private String cnpj;
 	
 	@Enumerated(EnumType.STRING)
