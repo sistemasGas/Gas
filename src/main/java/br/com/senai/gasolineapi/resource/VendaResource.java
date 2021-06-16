@@ -54,15 +54,20 @@ public class VendaResource {
 	public ResponseEntity<Venda> criar(@Valid @RequestBody Venda venda, HttpServletResponse response) {
 		Venda vendaSalva = vendaRepository.save(venda);
 
-		if (vendaSalva.getStatus() == StatusEnum.EMITIDA) {
 			for (ItemVenda i : vendaSalva.getItensVenda()) {
 				long qntEstoque = i.getProduto().getQuantidadeEstoque();
-				qntEstoque -= i.getQuantidade();
-				if (qntEstoque > 0) {
+				if(vendaSalva.getStatus() == StatusEnum.CANCELADA) {
+					qntEstoque += i.getQuantidade();
 					produtoService.atualizarEstoque(i.getProduto().getId(), qntEstoque);
 				}
+				if(vendaSalva.getStatus() == StatusEnum.EMITIDA) {
+					qntEstoque -= i.getQuantidade();
+					if (qntEstoque > 0) {
+						produtoService.atualizarEstoque(i.getProduto().getId(), qntEstoque);
+					}
+				}
 			}
-		}
+
 		URI uri = ServletUriComponentsBuilder.fromCurrentRequestUri().path("/{codigo}")
 				.buildAndExpand(vendaSalva.getCodigo()).toUri();
 		response.setHeader("location", uri.toASCIIString());
