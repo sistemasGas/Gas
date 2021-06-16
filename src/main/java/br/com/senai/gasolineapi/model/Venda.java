@@ -22,8 +22,6 @@ import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
 import org.hibernate.annotations.DynamicUpdate;
-import org.hibernate.annotations.Fetch;
-import org.hibernate.annotations.FetchMode;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
@@ -149,35 +147,37 @@ public class Venda {
 	 * public void setItensVenda(List<ItemVenda> itens) { this.itensVenda = itens; }
 	 */
 
-	public boolean isNova() {
-		return codigo == null;
-	}
+	/*
+	 * public boolean isNova() { return codigo == null; }
+	 */
 
 	public void setItensVenda(List<ItemVenda> itens) {
 		this.itensVenda = itens;
 		this.itensVenda.forEach(i -> i.setVenda(this));
 	}
 
-	public BigDecimal getValorTotalItens() {
-		return getItensVenda().stream().map(ItemVenda::getValorTotal).reduce(BigDecimal::add).orElse(BigDecimal.ZERO);
-	}
+	/*
+	 * public BigDecimal getValorTotalItens() { return
+	 * getItensVenda().stream().map(ItemVenda::getValorTotal).reduce(BigDecimal::add
+	 * ).orElse(BigDecimal.ZERO); }
+	 */
 
-	public void calcularValorTotal() {
-		this.valorTotal = calcularValorTotal(getValorTotalItens(), getValorDesconto());
-	}
+	/*
+	 * public void calcularValorTotal() { this.valorTotal =
+	 * calcularValorTotal(getValorTotalItens(), getValorDesconto()); }
+	 */
 
-	public Long getDiasCriacao() {
-		LocalDate inicio = dataVenda != null ? dataVenda : LocalDate.now();
-		return ChronoUnit.DAYS.between(inicio, LocalDate.now());
-	}
-
-	public boolean isSalvarPermitido() {
-		return !status.equals(StatusEnum.CANCELADA);
-	}
-
-	public boolean isSalvarProibido() {
-		return !isSalvarPermitido();
-	}
+	/*
+	 * public Long getDiasCriacao() { LocalDate inicio = dataVenda != null ?
+	 * dataVenda : LocalDate.now(); return ChronoUnit.DAYS.between(inicio,
+	 * LocalDate.now()); }
+	 */
+	/*
+	 * public boolean isSalvarPermitido() { return
+	 * !status.equals(StatusEnum.CANCELADA); }
+	 * 
+	 * public boolean isSalvarProibido() { return !isSalvarPermitido(); }
+	 */
 
 	private BigDecimal calcularValorTotal(BigDecimal valorTotalItens, BigDecimal valorDesconto) {
 		BigDecimal valorTotal = valorTotalItens.subtract(Optional.ofNullable(valorDesconto).orElse(BigDecimal.ZERO));
