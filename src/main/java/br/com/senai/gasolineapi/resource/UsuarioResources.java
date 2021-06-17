@@ -45,9 +45,14 @@ public class UsuarioResources {
 		usuarioRepository.save(user);
 	}
 	@GetMapping("/{login}")
-	public ResponseEntity<Optional<Usuario>> buscarPorLogin(@PathVariable Long login) {
-		Optional<Usuario> usuario = usuarioRepository.findById(login);
-		return usuario != null ? ResponseEntity.ok(usuario) : ResponseEntity.notFound().build();
+	public ResponseEntity<Optional<Usuario>> buscarPorLogin(@PathVariable String login) {
+		List<Usuario> listaLogin =  usuarioRepository.findAll();
+		Usuario usuariolog = new Usuario();
+			for(Usuario u: listaLogin) {
+				if (login.equals(u.getLogin())) usuariolog = u;
+			}
+			return usuariolog != null ? ResponseEntity.ok(Optional.of(usuariolog)) : ResponseEntity.notFound().build() ;
+		
 	}
 
 }
