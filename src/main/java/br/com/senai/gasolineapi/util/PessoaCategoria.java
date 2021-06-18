@@ -4,6 +4,7 @@ public enum PessoaCategoria {
 	
 	CLIENT("Cliente"),
 	FORN("Fornecedor"),
+	CLIFOR("Cliente/Fornecedor"),
 	FUNC("Funcionário");
 	
 	private String descricao;

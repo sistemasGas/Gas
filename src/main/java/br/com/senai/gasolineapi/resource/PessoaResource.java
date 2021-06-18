@@ -13,9 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import br.com.senai.gasolineapi.model.Pessoa;
-import br.com.senai.gasolineapi.model.Produto;
 import br.com.senai.gasolineapi.repository.PessoaRepository;
-import br.com.senai.gasolineapi.repository.filter.ProdutoFilter;
 import br.com.senai.gasolineapi.util.PessoaCategoria;
 
 @RestController
@@ -66,6 +64,17 @@ public class PessoaResource {
 				qntFornecedor++;
 		}
 		return qntFornecedor;
+	}
+	@GetMapping("/qntClienteFornecedor")
+	public int buscaTotalClientesFornecedor() {
+		List<Pessoa> lista = get();
+
+		int qntClienteFornecedor = 0;
+		for (Pessoa p : lista) {
+			if (p.getCategoria().equals(PessoaCategoria.CLIFOR))
+				qntClienteFornecedor++;
+		}
+		return qntClienteFornecedor;
 	}
 	@GetMapping("/qntFuncionarios")
 	public int buscaTotalFuncionarios() {
