@@ -50,6 +50,10 @@ public class Pessoa {
 	@ManyToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name="usuario_id")
 	private Usuario usuario;
+	
+	@ManyToOne(cascade = CascadeType.ALL)
+	@JoinColumn(name="endereco_id")
+	private Endereco endereco;
 
 	public Long getId() {
 		return id;
@@ -190,6 +194,14 @@ public class Pessoa {
 
 	public void setUsuario(Usuario usuario) {
 		this.usuario = usuario;
+	}
+
+	public Endereco getEndereco() {
+		return endereco;
+	}
+
+	public void setEndereco(Endereco endereco) {
+		this.endereco = endereco;
 	}
 	
 	
