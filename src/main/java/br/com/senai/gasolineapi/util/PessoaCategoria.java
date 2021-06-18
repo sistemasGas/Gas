@@ -2,7 +2,8 @@ package br.com.senai.gasolineapi.util;
 
 public enum PessoaCategoria {
 	
-	CLIFOR("Cliente/Fornecedor"),
+	CLIENT("Cliente"),
+	FORN("Fornecedor"),
 	FUNC("Funcionário");
 	
 	private String descricao;

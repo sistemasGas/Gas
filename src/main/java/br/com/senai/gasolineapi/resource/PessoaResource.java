@@ -51,9 +51,32 @@ public class PessoaResource {
 
 		int qntCliente = 0;
 		for (Pessoa p : lista) {
-			if (p.getCategoria().equals(PessoaCategoria.CLIFOR))
+			if (p.getCategoria().equals(PessoaCategoria.CLIENT))
 				qntCliente++;
 		}
 		return qntCliente;
 	}
+	@GetMapping("/qntFornecedores")
+	public int buscaTotalFornecedores() {
+		List<Pessoa> lista = get();
+
+		int qntFornecedor = 0;
+		for (Pessoa p : lista) {
+			if (p.getCategoria().equals(PessoaCategoria.FORN))
+				qntFornecedor++;
+		}
+		return qntFornecedor;
+	}
+	@GetMapping("/qntFuncionarios")
+	public int buscaTotalFuncionarios() {
+		List<Pessoa> lista = get();
+
+		int qntFuncionarios = 0;
+		for (Pessoa p : lista) {
+			if (p.getCategoria().equals(PessoaCategoria.FUNC))
+				qntFuncionarios++;
+		}
+		return qntFuncionarios;
+	}
+	
 }
