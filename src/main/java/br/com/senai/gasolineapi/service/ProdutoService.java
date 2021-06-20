@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 
 import br.com.senai.gasolineapi.model.Produto;
 import br.com.senai.gasolineapi.repository.ProdutoRepository;
+import br.com.senai.gasolineapi.util.CategoriaEnum;
 
 @Service
 public class ProdutoService {
@@ -50,7 +51,7 @@ public class ProdutoService {
 	public Produto salvar(@Valid Produto produto) {
 		List<Produto> produtos =produtoRepository.findAll();
 		for(Produto p: produtos) {
-			if(p.getCategoria().equals(produto.getCategoria())) {
+			if(p.getCategoria().equals(produto.getCategoria()) && p.getDescricao().equals(produto.getDescricao())) {
 				throw new DuplicateKeyException("Produto ja existe");
 			}
 		}
