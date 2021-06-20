@@ -1,7 +1,12 @@
 package br.com.senai.gasolineapi.service;
 
+import java.util.List;
+
+import javax.validation.Valid;
+
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DuplicateKeyException;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 
@@ -40,5 +45,17 @@ public class ProdutoService {
 		produtoSalvo.setQuantidadeEstoque(quantidadeEstoque);
 		produtoRepository.save(produtoSalvo);
 	}
+	
+
+	public Produto salvar(@Valid Produto produto) {
+		List<Produto> produtos =produtoRepository.findAll();
+		for(Produto p: produtos) {
+			if(p.getCategoria().equals(produto.getCategoria())) {
+				throw new DuplicateKeyException("Produto ja existe");
+			}
+		}
+		return produto;
+	}
+
 	
 }

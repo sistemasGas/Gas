@@ -45,7 +45,8 @@ public class ProdutoResource {
 	@PostMapping
 	@ResponseStatus(HttpStatus.CREATED)
 	public ResponseEntity<Produto> criar(@Valid @RequestBody Produto produto, HttpServletResponse response) {
-		Produto produtoSalvo = produtoRepository.save(produto);
+		Produto produtoSalvo = produtoService.salvar(produto);
+		produtoRepository.save(produtoSalvo);
 
 		URI uri = ServletUriComponentsBuilder.fromCurrentRequestUri().path("/{id}").buildAndExpand(produtoSalvo.getId())
 				.toUri();
