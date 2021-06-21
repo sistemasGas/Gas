@@ -27,7 +27,9 @@ public class Produto {
 	@Size(min = 3, max = 30)
 	private String descricao;
 	@Range(min=1, max = 99999)
+	@NotNull
 	private Double valorCompra;
+	@NotNull
 	@Range(min=1, max = 99999)
 	private Double valorVenda;
 	private Long quantidadeEstoque;

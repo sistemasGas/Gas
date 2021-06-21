@@ -22,6 +22,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import br.com.senai.gasolineapi.model.Categoria;
+import br.com.senai.gasolineapi.model.Produto;
 import br.com.senai.gasolineapi.repository.CategoriaRepository;
 import br.com.senai.gasolineapi.service.CategoriaService;
 
@@ -37,9 +38,12 @@ public class CategoriaResource {
 	
 	
 	@GetMapping
-	public List<Categoria> pesquisar() {
-		return categoriaRepository.findAll();
+	@ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
+	public ResponseEntity <List<Categoria>> pesquisar() {
+		List<Categoria> list = categoriaRepository.findAll();
+		return list != null ? ResponseEntity.ok(list) : ResponseEntity.notFound().build();
 	}
+	
 	
 	@PostMapping
 	@ResponseStatus(HttpStatus.CREATED)
