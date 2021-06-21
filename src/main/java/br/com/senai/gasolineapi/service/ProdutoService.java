@@ -46,17 +46,18 @@ public class ProdutoService {
 		produtoSalvo.setQuantidadeEstoque(quantidadeEstoque);
 		produtoRepository.save(produtoSalvo);
 	}
-	
 
 	public Produto salvar(@Valid Produto produto) {
-		List<Produto> produtos =produtoRepository.findAll();
-		for(Produto p: produtos) {
-			if(p.getCategoria().equals(produto.getCategoria()) && p.getDescricao().equals(produto.getDescricao())) {
+		List<Produto> produtos = produtoRepository.findAll();
+		for (Produto p : produtos) {
+			if (produto.getId() != null && produto.getValorVenda() == p.getValorVenda()
+					&& produto.getQuantidadeEstoque() == p.getQuantidadeEstoque()) {
+				throw new DuplicateKeyException("Alteração nao Permitida");
+			} else if (produto.getId()==null && produto.getCategoria().getCodigo()==p.getCategoria().getCodigo()) {
 				throw new DuplicateKeyException("Produto ja existe");
 			}
 		}
 		return produto;
 	}
-
 	
 }

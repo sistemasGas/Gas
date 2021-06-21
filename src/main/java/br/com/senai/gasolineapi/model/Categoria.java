@@ -17,7 +17,7 @@ public class Categoria {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long codigo;
 	@NotNull
-	@Size(min = 2, max = 5)
+	@Size(min = 2, max = 3)
 	private String sigla;
 	@NotNull
 	@Size(min = 2, max = 30)
