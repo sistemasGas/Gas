@@ -10,6 +10,9 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
+
+import org.hibernate.validator.constraints.Range;
 
 @Entity
 @Table(name = "produto_venda")
@@ -18,12 +21,15 @@ public class ItemVenda {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long codigo;
-
+	
+	@NotNull
 	private Integer quantidade;
-
+	
+	@Range(min=1, max = 99999)
 	@Column(name = "valor_unitario")
 	private BigDecimal valorUnitario;
-
+	
+	@NotNull
 	@ManyToOne
 	@JoinColumn(name = "codigo_produto")	
 	private Produto produto;
