@@ -1,6 +1,5 @@
 package br.com.senai.gasolineapi.resource;
 
-import java.math.BigDecimal;
 import java.net.URI;
 import java.util.List;
 import java.util.Optional;
@@ -22,10 +21,8 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import br.com.senai.gasolineapi.model.ItemVenda;
-import br.com.senai.gasolineapi.model.Produto;
 import br.com.senai.gasolineapi.model.Venda;
 import br.com.senai.gasolineapi.repository.VendaRepository;
-import br.com.senai.gasolineapi.repository.filter.ProdutoFilter;
 import br.com.senai.gasolineapi.repository.filter.VendaFilter;
 import br.com.senai.gasolineapi.service.ProdutoService;
 import br.com.senai.gasolineapi.service.VendaService;
@@ -37,6 +34,8 @@ public class VendaResource {
 
 	@Autowired
 	private VendaRepository vendaRepository;
+	
+	private Venda venda = new Venda();
 
 	@Autowired
 	private VendaService vendaService;
@@ -53,21 +52,21 @@ public class VendaResource {
 	@ResponseStatus(HttpStatus.CREATED)
 	public ResponseEntity<Venda> criar(@Valid @RequestBody Venda venda, HttpServletResponse response) {
 		Venda vendaSalva = vendaService.salvar(venda);
-				vendaRepository.save(vendaSalva);
+		vendaRepository.save(vendaSalva);
 
-			for (ItemVenda i : vendaSalva.getItensVenda()) {
-				long qntEstoque = i.getProduto().getQuantidadeEstoque();
-				if(vendaSalva.getStatus() == StatusEnum.CANCELADA) {
-					qntEstoque += i.getQuantidade();
+		for (ItemVenda i : vendaSalva.getItensVenda()) {
+			long qntEstoque = i.getProduto().getQuantidadeEstoque();
+			if (vendaSalva.getStatus() == StatusEnum.CANCELADA) {
+				qntEstoque += i.getQuantidade();
+				produtoService.atualizarEstoque(i.getProduto().getId(), qntEstoque);
+			}
+			if (vendaSalva.getStatus() == StatusEnum.EMITIDA) {
+				qntEstoque -= i.getQuantidade();
+				if (qntEstoque > 0) {
 					produtoService.atualizarEstoque(i.getProduto().getId(), qntEstoque);
 				}
-				if(vendaSalva.getStatus() == StatusEnum.EMITIDA) {
-					qntEstoque -= i.getQuantidade();
-					if (qntEstoque > 0) {
-						produtoService.atualizarEstoque(i.getProduto().getId(), qntEstoque);
-					}
-				}
 			}
+		}
 
 		URI uri = ServletUriComponentsBuilder.fromCurrentRequestUri().path("/{codigo}")
 				.buildAndExpand(vendaSalva.getCodigo()).toUri();
@@ -91,12 +90,12 @@ public class VendaResource {
 	@GetMapping("/totalvendas")
 	public double buscarTotalVendas(VendaFilter vendaFilter) {
 		List<Venda> lista = pesquisar();
+		return venda.calcularTotalVendas(lista);
+	}
 
-		double valor = 0;
-		for (Venda v : lista) {
-			if (v.getStatus() == StatusEnum.EMITIDA)
-				valor += v.getValorTotal().longValue();
-		}
-		return valor;
+	@GetMapping("/totalitens")
+	public int buscarTotalItensVendidos(VendaFilter vendaFilter) {
+		List<Venda> lista = pesquisar();
+		return venda.calcularTotalItensVendidos(lista);
 	}
 }
