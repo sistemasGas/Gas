@@ -52,7 +52,8 @@ public class VendaResource {
 	@PostMapping
 	@ResponseStatus(HttpStatus.CREATED)
 	public ResponseEntity<Venda> criar(@Valid @RequestBody Venda venda, HttpServletResponse response) {
-		Venda vendaSalva = vendaRepository.save(venda);
+		Venda vendaSalva = vendaService.salvar(venda);
+				vendaRepository.save(vendaSalva);
 
 			for (ItemVenda i : vendaSalva.getItensVenda()) {
 				long qntEstoque = i.getProduto().getQuantidadeEstoque();

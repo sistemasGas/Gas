@@ -62,7 +62,8 @@ public class Venda {
 
 	@Enumerated(EnumType.STRING)
 	private StatusEnum status = StatusEnum.ORCAMENTO;
-
+	
+	@NotNull
 	@JsonIgnoreProperties("venda")
 	@OneToMany(mappedBy = "venda", cascade = { CascadeType.PERSIST, CascadeType.MERGE })
 	private List<ItemVenda> itensVenda = new ArrayList<>();

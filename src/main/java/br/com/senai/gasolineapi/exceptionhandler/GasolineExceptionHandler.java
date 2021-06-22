@@ -78,7 +78,7 @@ public class GasolineExceptionHandler extends ResponseEntityExceptionHandler {
 		String mensagemUsuario = messageSource.getMessage("preencha.todos-campos", null, LocaleContextHolder.getLocale());
 		String mensagemDesenvolvedor = ex.toString();
 		List<Erro> erros = Arrays.asList(new Erro(mensagemUsuario, mensagemDesenvolvedor));
-		return handleExceptionInternal(ex, erros, new HttpHeaders(), HttpStatus.INTERNAL_SERVER_ERROR, request);
+		return handleExceptionInternal(ex, erros, new HttpHeaders(), HttpStatus.TOO_MANY_REQUESTS, request);
 	}
 
 	public static class Erro {
