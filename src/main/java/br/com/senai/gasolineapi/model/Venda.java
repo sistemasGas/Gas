@@ -22,6 +22,7 @@ import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
 import org.hibernate.annotations.DynamicUpdate;
+import org.hibernate.internal.build.AllowSysOut;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
@@ -184,6 +185,25 @@ public class Venda {
 		BigDecimal valorTotal = valorTotalItens.subtract(Optional.ofNullable(valorDesconto).orElse(BigDecimal.ZERO));
 		return valorTotal;
 	}
+	
+	public Double calcularTotalVendas(List<Venda> lista) {
+		double valor = 0;
+		for (Venda v : lista) {
+			if (v.getStatus() == StatusEnum.EMITIDA)
+				valor += v.getValorTotal().longValue();
+		}
+		return valor;
+	}
+	
+	public int calcularTotalItensVendidos(List<Venda> lista) {
+		int valor = 0;
+		for (Venda v : lista) {
+			if (v.getStatus() == StatusEnum.EMITIDA)
+				valor += v.getItensVenda().size();
+		}
+		return valor;
+	}
+	
 
 	@Override
 	public int hashCode() {
