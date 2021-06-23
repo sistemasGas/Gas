@@ -3,16 +3,17 @@ package br.com.senai.gasolineapi;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
-import java.util.Optional;
-
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase.Replace;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
+import org.springframework.test.annotation.Rollback;
 
 import br.com.senai.gasolineapi.model.Pessoa;
 import br.com.senai.gasolineapi.repository.PessoaRepository;
+import br.com.senai.gasolineapi.util.PessoaCategoria;
+import br.com.senai.gasolineapi.util.TipoPessoa;
 
 @DataJpaTest
 @AutoConfigureTestDatabase(replace = Replace.NONE)
@@ -21,25 +22,24 @@ public class PessoaTest {
 	@Autowired
 	private PessoaRepository repo;
 
+//	 test de gravação de Pessoa
 	@Test
+	@Rollback(false)
 	public void testCreatePessoa() {
-		Pessoa pessoa = new Pessoa(null, "Test", "telefone", "email@email.com", null, "FUNC","FISICA", null, null);
-//		Pessoa pessoa = new Pessoa("Test", "telefone", "email@email.com", "FUNC","FISICA");
+		Pessoa pessoa = new Pessoa(null, "Test", "telefone", "email@email.com", TipoPessoa.FISICA, null, null,
+				PessoaCategoria.FUNC, null);
 		Pessoa savePesssoa = repo.save(pessoa);
-		
+
 		assertNotNull(savePesssoa);
 
 	}
-	
-//	@Test void testCreateUsuario() {
-//		Usuario usuario = new Usuario();
-//		repo.saveAll(usuario);
-//	}
+// test por ID de pessoa
+	@Test 
+	public void testFindPessoaById() {
+		long id = 25;		
+		Pessoa pessoa = repo.getOne(id);
 		
-//	public void buscarId() {
-//		Long idLogin = (long) 1;
-//		Optional<Pessoa> user = repo.findById(idLogin);
-//		assertThat(user.get()).isEqualTo(idLogin);
-//	}
-	
+		assertThat(pessoa.getId()).isEqualTo(id);
+	}
+
 }

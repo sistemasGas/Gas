@@ -161,8 +161,7 @@ public class Pessoa {
 	
 
 	public Pessoa(String nome, String telefone, String email, @NotNull TipoPessoa tipo,
-			@NotNull PessoaCategoria categoria) {
-		super();
+			@NotNull PessoaCategoria categoria) {		
 		this.nome = nome;
 		this.telefone = telefone;
 		this.email = email;
