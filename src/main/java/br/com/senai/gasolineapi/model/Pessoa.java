@@ -144,10 +144,6 @@ public class Pessoa {
 		this.categoria = categoria;
 		this.cargo = cargo;
 	}
-	
-	
-
-
 	public Pessoa(Long id, String nome, String telefone, String email, @NotNull TipoPessoa tipo, String cpf,
 			String cnpj, @NotNull PessoaCategoria categoria, String cargo, Usuario usuario) {
 		super();
@@ -161,6 +157,17 @@ public class Pessoa {
 		this.categoria = categoria;
 		this.cargo = cargo;
 		this.usuario = usuario;
+	}
+	
+
+	public Pessoa(String nome, String telefone, String email, @NotNull TipoPessoa tipo,
+			@NotNull PessoaCategoria categoria) {
+		super();
+		this.nome = nome;
+		this.telefone = telefone;
+		this.email = email;
+		this.tipo = tipo;
+		this.categoria = categoria;
 	}
 
 	@Override
@@ -203,9 +210,14 @@ public class Pessoa {
 	public void setEndereco(Endereco endereco) {
 		this.endereco = endereco;
 	}
-	
-	
-	
-	//oi
 
+	public Pessoa(String nome, String telefone, String email) {	
+		this.nome = nome;
+		this.telefone = telefone;
+		this.email = email;
+	}
+
+	
+	
+	
 }
