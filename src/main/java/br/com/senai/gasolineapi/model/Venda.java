@@ -199,7 +199,8 @@ public class Venda {
 		int valor = 0;
 		for (Venda v : lista) {
 			if (v.getStatus() == StatusEnum.EMITIDA)
-				valor += v.getItensVenda().size();
+				for(ItemVenda i:v.getItensVenda())
+				valor += i.getQuantidade();
 		}
 		return valor;
 	}
