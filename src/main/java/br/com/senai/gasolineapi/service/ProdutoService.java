@@ -50,8 +50,8 @@ public class ProdutoService {
 	public Produto salvar(@Valid Produto produto) {
 		List<Produto> produtos = produtoRepository.findAll();
 		for (Produto p : produtos) {
-			if (produto.getId() != null && produto.getValorVenda() == p.getValorVenda()
-					&& produto.getQuantidadeEstoque() == p.getQuantidadeEstoque()) {
+			if (produto.getId() == p.getId() && (!produto.getDescricao().equals(p.getDescricao()) ||
+					!produto.getCategoria().equals(p.getCategoria()) || produto.getValorCompra()!=p.getValorCompra())){
 				throw new DuplicateKeyException("Alteração nao Permitida");
 			} else if (produto.getId()==null && produto.getCategoria().getCodigo()==p.getCategoria().getCodigo()) {
 				throw new DuplicateKeyException("Produto ja existe");
