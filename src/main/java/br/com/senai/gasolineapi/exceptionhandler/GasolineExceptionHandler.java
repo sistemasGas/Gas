@@ -4,8 +4,6 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import javax.validation.ConstraintViolationException;
-
 import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.hibernate.TransientPropertyValueException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -82,15 +80,6 @@ public class GasolineExceptionHandler extends ResponseEntityExceptionHandler {
 		List<Erro> erros = Arrays.asList(new Erro(mensagemUsuario, mensagemDesenvolvedor));
 		return handleExceptionInternal(ex, erros, new HttpHeaders(), HttpStatus.TOO_MANY_REQUESTS, request);
 	}
-	
-	@ExceptionHandler({ConstraintViolationException.class})
-	public ResponseEntity<Object> handleConstraintViolationException(ConstraintViolationException ex, WebRequest request) {
-		String mensagemUsuario = messageSource.getMessage("campo.obrigatorio", null, LocaleContextHolder.getLocale());
-		String mensagemDesenvolvedor = ex.toString();
-		List<Erro> erros = Arrays.asList(new Erro(mensagemUsuario, mensagemDesenvolvedor));
-		return handleExceptionInternal(ex, erros, new HttpHeaders(), HttpStatus.TOO_MANY_REQUESTS, request);
-	}
-
 
 	public static class Erro {
 

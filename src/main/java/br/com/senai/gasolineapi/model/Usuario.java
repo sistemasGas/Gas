@@ -18,7 +18,7 @@ public class Usuario {
 	private String login;
 	private String senha;
 	private PerfilEnum perfil;
-		
+	
 	public Long getId() {
 		return id;
 	}
@@ -49,6 +49,15 @@ public class Usuario {
         }
 		return login;             
     }
+	public Usuario() {
+		
+	}
+	public Usuario(Long id, String login, String senha, PerfilEnum perfil) {
+		this.id=id;
+		this.login=login;
+		this.senha=senha;
+		this.perfil=perfil;
+	}
 	
 	public void validaLogin(Usuario objeto) throws Exception {
         String nome = objeto.getLogin().trim().toLowerCase();
@@ -75,5 +84,13 @@ public class Usuario {
               //  throw new Exception("O login --> " + objeto.getLogin() + "\nJá existe no cadastro de Usuarios!\n");
             //}
         //}
+	}
+	public static boolean isEmpty (String userLogin) {
+		if (userLogin == null) {
+			return true;
+		}
+
+		userLogin = userLogin.trim();
+		return userLogin.length() == 0;
 	}
 }

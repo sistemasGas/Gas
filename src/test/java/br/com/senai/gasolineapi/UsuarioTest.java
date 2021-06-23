@@ -10,36 +10,34 @@ import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabas
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.test.annotation.Rollback;
 
-import br.com.senai.gasolineapi.model.Pessoa;
-import br.com.senai.gasolineapi.repository.PessoaRepository;
-import br.com.senai.gasolineapi.util.PessoaCategoria;
-import br.com.senai.gasolineapi.util.TipoPessoa;
+import br.com.senai.gasolineapi.model.Usuario;
+import br.com.senai.gasolineapi.repository.UsuarioRepository;
+import br.com.senai.gasolineapi.util.PerfilEnum;
 
 @DataJpaTest
 @AutoConfigureTestDatabase(replace = Replace.NONE)
-public class PessoaTest {
-
+public class UsuarioTest {
 	@Autowired
-	private PessoaRepository repo;
-
-//	 test de gravação de Pessoa
+	private UsuarioRepository repo;
+	
 	@Test
 	@Rollback(false)
-	public void testCreatePessoa() {
-		Pessoa pessoa = new Pessoa(null, "Test", "telefone", "email@email.com", TipoPessoa.FISICA, null, null,
-				PessoaCategoria.FUNC, null);
-		Pessoa savePesssoa = repo.save(pessoa);
-
-		assertNotNull(savePesssoa);
-
-	}
-// test por ID de pessoa
-	@Test 
-	public void testFindPessoaById() {
-		long id = 25;		
-		Pessoa pessoa = repo.getOne(id);
+	private void testSalvarUsuario() {
+		Usuario user = new Usuario (null, "321.123.321-12", "max123", PerfilEnum.Func);
+		Usuario salvaUser = repo.save(user);
 		
-		assertThat(pessoa.getId()).isEqualTo(id);
+		assertNotNull(salvaUser);
 	}
-
+	
+	@Test 
+	public void testFindUsuarioById() {
+		long id = 25;		
+		Usuario user = repo.getOne(id);
+		
+		assertThat(user.getId()).isEqualTo(id);
+	}
+	
+	
+	
 }
+
