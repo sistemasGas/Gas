@@ -1,5 +1,7 @@
 package br.com.senai.gasolineapi.model;
 
+import java.util.List;
+
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
@@ -105,6 +107,14 @@ public class Produto {
 	}
 	public void setImagem(String imagem) {
 		this.imagem = imagem;
+	}
+	
+	public Double calcularValorEstoque(List<Produto> list) {
+		double valor=0;
+		for(Produto p: list) {
+			valor += p.getValorVenda()*p.getQuantidadeEstoque();
+		}
+		return valor;
 	}
 	
 }

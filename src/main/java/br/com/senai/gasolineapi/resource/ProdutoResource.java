@@ -32,6 +32,7 @@ public class ProdutoResource {
 
 	@Autowired
 	private ProdutoRepository produtoRepository;
+	private Produto produto = new Produto();
 	
 	@Autowired
 	private ProdutoService produtoService;
@@ -88,11 +89,6 @@ public class ProdutoResource {
 	@GetMapping("/valorestoque")
 	public double buscarTotalProdutos( ProdutoFilter produtoFilter) {
 		List<Produto> lista = pesquisar(produtoFilter);
-		
-		double valor=0;
-		for(Produto p: lista) {
-			valor += p.getValorVenda()*p.getQuantidadeEstoque();
-		}
-		return valor;
+		return produto.calcularValorEstoque(lista);		
 	}
 }
