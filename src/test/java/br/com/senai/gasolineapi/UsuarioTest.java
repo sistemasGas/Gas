@@ -21,7 +21,7 @@ public class UsuarioTest {
 	private UsuarioRepository repo;
 	
 	@Test
-	@Rollback(false)
+	//@Rollback(false)
 	private void testSalvarUsuario() {
 		Usuario user = new Usuario (null, "321.123.321-12", "max123", PerfilEnum.Func);
 		Usuario salvaUser = repo.save(user);

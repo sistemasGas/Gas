@@ -8,6 +8,7 @@ import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabas
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase.Replace;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 
+import br.com.senai.gasolineapi.model.ItemVenda;
 import br.com.senai.gasolineapi.model.Venda;
 import br.com.senai.gasolineapi.repository.VendaRepository;
 
@@ -17,6 +18,7 @@ public class VendaTest {
 	@Autowired
 	private VendaRepository repo;
 	private Venda venda = new Venda();
+	private ItemVenda item = new ItemVenda();
 
 
 	@Test
@@ -29,5 +31,12 @@ public class VendaTest {
 	void testCalcularTotalItensVendidos() {
 		System.out.println("Teste total de itens vendidos");
 		assertEquals(5, venda.calcularTotalItensVendidos(repo.findAll()));
+	}
+	
+	@Test
+	void testarTotalItem() {
+		System.out.println("Teste total de itens da venda");
+		venda = repo.findById((long) 18);
+		assetEquals(270, item.getVenda(repo.findById(18))));
 	}
 }

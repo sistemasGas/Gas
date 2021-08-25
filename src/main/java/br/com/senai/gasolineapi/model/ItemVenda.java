@@ -71,10 +71,10 @@ public class ItemVenda {
 		this.produto = produto;
 	}
 
-	/*
-	 * public BigDecimal getValorTotal() { return valorUnitario.multiply(new
-	 * BigDecimal(quantidade)); }
-	 */
+
+	 public BigDecimal getValorTotal() { return valorUnitario.multiply(new
+	 BigDecimal(quantidade)); }
+
 
 	
 	public Venda getVenda() {
